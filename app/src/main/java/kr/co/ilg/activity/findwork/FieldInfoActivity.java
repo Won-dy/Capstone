@@ -24,7 +24,11 @@ import com.example.capstone.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FieldInfoActivity extends AppCompatActivity {
     RecyclerView work_info_RecyclerView, review_RecyclerView;
@@ -38,6 +42,8 @@ public class FieldInfoActivity extends AppCompatActivity {
     TextView field_nameTv, field_addressTv;
     String jp_num, field_name, field_address, jp_title, jp_job_date, jp_job_cost, job_name, manager_office_name, jp_job_tot_people, jp_job_start_time, jp_job_finish_time, jp_contents,business_reg_num;
     boolean jp_is_urgency;
+    int y, m , d;
+    Date date=null, getdate=null;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -60,7 +66,11 @@ public class FieldInfoActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        y = cal.get(Calendar.YEAR);
+        m = cal.get(Calendar.MONTH);
+        d = cal.get(Calendar.DAY_OF_MONTH);
         Intent receiver = getIntent();
         business_reg_num = receiver.getExtras().getString("business_reg_num");
         jp_num = receiver.getExtras().getString("jp_num");
@@ -106,9 +116,17 @@ public class FieldInfoActivity extends AppCompatActivity {
 
         Log.d("ttttttttqqqqqqqqqqq", jp_num + " " + String.valueOf(jp_job_current_people));
         workInfoArrayList = new ArrayList<>();
-        workInfoArrayList.add(new ListViewItem(business_reg_num,jp_num,jp_title, jp_job_date,Integer.parseInt(jp_job_cost), job_name, field_address, manager_office_name, jp_job_current_people,
-                Integer.parseInt(jp_job_tot_people),jp_is_urgency, jp_job_start_time, jp_job_finish_time, jp_contents, field_name));
-        //workInfoArrayList.add(new ListViewItem("레미안 건축","2020-06-14",150000,"상수 레미안 아파트","건축","개미인력소",1,3));
+        try {
+            date = dateFormat.parse(String.format("%d",y)+"-"+String.format("%02d",(m+1))+"-"+String.format("%02d",d));
+            getdate = dateFormat.parse(jp_job_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int compare = date.compareTo(getdate);
+        if(compare <=0) {
+            workInfoArrayList.add(new ListViewItem(business_reg_num, jp_num, jp_title, jp_job_date, Integer.parseInt(jp_job_cost), job_name, field_address, manager_office_name, jp_job_current_people,
+                    Integer.parseInt(jp_job_tot_people), jp_is_urgency, jp_job_start_time, jp_job_finish_time, jp_contents, field_name));
+        }
 
         ListAdapter workAdapter = new ListAdapter(getApplicationContext(), workInfoArrayList);
         work_info_RecyclerView.setAdapter(workAdapter);

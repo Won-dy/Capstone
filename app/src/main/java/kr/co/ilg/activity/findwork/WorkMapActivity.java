@@ -587,7 +587,7 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                             intent.putExtra("business_reg_num", business_reg_num[0]);
                             startActivity(intent);
                             mapView.refreshMapTiles();
-                            finish();
+                           // finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.d("mytest4", e.toString());
