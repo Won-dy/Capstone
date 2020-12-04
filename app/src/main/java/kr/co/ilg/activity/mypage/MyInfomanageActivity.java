@@ -72,13 +72,16 @@ public class MyInfomanageActivity extends Activity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MyInfomanageActivity.this);
                 dlg.setTitle("프로필 수정");
                 dialogview = (View) View.inflate(MyInfomanageActivity.this, R.layout.updateprofile, null);
+                edit_phonenum = dialogview.findViewById(R.id.edit_phonenum);
+                edit_phonenum.setText(Sharedpreference.get_Phonenum(mContext, "worker_phonenum","memberinfo"));
+                edit_introduce = dialogview.findViewById(R.id.edit_introduce);
+                edit_introduce.setText(Sharedpreference.get_introduce(mContext, "worker_introduce","memberinfo"));
 
                 dlg.setView(dialogview);
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        edit_phonenum = dialogview.findViewById(R.id.edit_phonenum);
-                        edit_introduce = dialogview.findViewById(R.id.edit_introduce);
+
                         worker_introduce = edit_introduce.getText().toString();
                         worker_phonenum = edit_phonenum.getText().toString();
                         Response.Listener rListener = new Response.Listener<String>() {

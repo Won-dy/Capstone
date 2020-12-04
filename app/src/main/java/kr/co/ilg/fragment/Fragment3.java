@@ -96,10 +96,17 @@ public class Fragment3 extends Fragment{
         int d = cal.get(Calendar.DAY_OF_MONTH);
         search = viewGroup.findViewById(R.id.search);
 
+        if(d<10) {
+            edit1.setText(y + "-" + m + "-0" + d);
+            edit2.setText(y + "-"+(m+1) + "-0"+ d);
+        }
+        else {
+            edit1.setText(y + "-" + m + "-" + d);
+            edit2.setText(y + "-"+(m+1) + "-"+ d);
 
-        edit1.setText(y + "-"+m + "-"+ d );
+        }
         phpdate = y+"-"+m+"-"+d;
-        edit2.setText(y + "-"+(m+1) + "-"+ d);
+
         phpdate1 = y+"-"+(m+1)+"-"+d;
 
         dialog1 = (View) View.inflate(context, R.layout.calendar, null);
@@ -110,8 +117,12 @@ public class Fragment3 extends Fragment{
                 DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+                        String msg;
+                        if(date<10){
+                            msg = String.format("%d-%d-0%d", year, month+1, date);
+                        }
+                        else msg = String.format("%d-%d-%d", year, month+1, date);
 
-                        String msg = String.format("%d - %d - %d", year, month+1, date);
                         phpdate = year+"-"+month+1+"-"+date;
                         edit1.setText(msg);
                         btnfalse();
@@ -131,8 +142,11 @@ public class Fragment3 extends Fragment{
                 DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-
-                        String msg = String.format("%d - %d - %d", year, month+1, date);
+                        String msg;
+                        if(date<10){
+                            msg = String.format("%d-%d-0%d", year, month+1, date);
+                        }
+                        else msg = String.format("%d-%d-%d", year, month+1, date);
                         edit2.setText(msg);
                         phpdate1 = year+"-"+month+1+"-"+date;
                         btnfalse();
@@ -240,7 +254,13 @@ public class Fragment3 extends Fragment{
                     u--;
                     cal4.add(Calendar.MONTH,+5);
                 }
-                date = cal2.get(Calendar.YEAR) + "-"+cal2.get(Calendar.MONTH) + "-"+ cal2.get(Calendar.DAY_OF_MONTH);
+                if(cal2.get(Calendar.DAY_OF_MONTH)<10){
+                    date = cal2.get(Calendar.YEAR) + "-"+cal2.get(Calendar.MONTH) + "-0"+ cal2.get(Calendar.DAY_OF_MONTH);
+                }
+                else{
+                    date = cal2.get(Calendar.YEAR) + "-"+cal2.get(Calendar.MONTH) + "-"+ cal2.get(Calendar.DAY_OF_MONTH);
+                }
+
                 phpdate = cal2.get(Calendar.YEAR)+"-"+cal2.get(Calendar.MONTH)+"-"+cal2.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
 
@@ -255,7 +275,12 @@ public class Fragment3 extends Fragment{
                     u--;
                     cal4.add(Calendar.MONTH,+5);
                 }
-                date = cal3.get(Calendar.YEAR) + "-"+cal3.get(Calendar.MONTH) + "-"+ cal3.get(Calendar.DAY_OF_MONTH);
+                if(cal3.get(Calendar.DAY_OF_MONTH)<10){
+                    date = cal3.get(Calendar.YEAR) + "-"+cal3.get(Calendar.MONTH) + "-0"+ cal3.get(Calendar.DAY_OF_MONTH);
+                }
+                else{
+                    date = cal3.get(Calendar.YEAR) + "-"+cal3.get(Calendar.MONTH) + "-"+ cal3.get(Calendar.DAY_OF_MONTH);
+                }
                 phpdate = cal3.get(Calendar.YEAR)+"-"+cal3.get(Calendar.MONTH)+"-"+cal3.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
             }
@@ -269,7 +294,12 @@ public class Fragment3 extends Fragment{
                     p--;
                     cal3.add(Calendar.MONTH,+2);
                 }
-                date = cal4.get(Calendar.YEAR) + "-"+cal4.get(Calendar.MONTH) + "-"+ cal4.get(Calendar.DAY_OF_MONTH);
+                if(cal4.get(Calendar.DAY_OF_MONTH)<10){
+                    date = cal4.get(Calendar.YEAR) + "-"+cal4.get(Calendar.MONTH) + "-0"+ cal4.get(Calendar.DAY_OF_MONTH);
+                }
+                else{
+                    date = cal4.get(Calendar.YEAR) + "-"+cal4.get(Calendar.MONTH) + "-"+ cal4.get(Calendar.DAY_OF_MONTH);
+                }
                 phpdate = cal4.get(Calendar.YEAR)+"-"+cal4.get(Calendar.MONTH)+"-"+cal4.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
             }

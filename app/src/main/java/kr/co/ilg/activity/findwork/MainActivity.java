@@ -237,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 local_sido = localSidoList[position];
                 sltTV.setText(localSidoList[position]); // 선택한 지역 상단에 띄우기
+                local_sigugun = "0";
                 k = position;
                 n++;
                 q = 1;
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (local_sido != "전체") {
                             local_sigugun = localSigugunList[k][position];
                             sltTV.setText(local_sido + " " + local_sigugun);
-                        } else local_sigugun = "";
+                        } else local_sigugun = "0";
 
                     }
                 });
