@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, localSidoList); // Adapter 생성
                     listview.setAdapter(adapter); //Adapter 연결
-                    listview.setSelection(0); // 첫 인덱스 설정
+                    //listview.setSelection(0); // 첫 인덱스 설정
 
                 } catch (Exception e) {
                     Log.d("mytest", e.toString() + "bbbbbbbbb" + response);
@@ -323,9 +323,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
                         if (j == 0) {
-                            jobsetting.setText("전체선택");
+                            jobsetting.setText("전체");
+                            job_code[0] = 0;
+                            job_code[1] = 0;
+                            job_code[2] = 0;
                         }
-                        else jobsetting.setText(text2);
                     }
                 });
                 dlg.setNeutralButton("전체", new DialogInterface.OnClickListener() {
@@ -422,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     urgency_RecyclerView.setAdapter(urgencyAdapter);
 
                 } catch (Exception e) {
-                    Log.d("mytest", e.toString());
+                    Log.d("mytestmain", e.toString());
                 }
             }
         };
