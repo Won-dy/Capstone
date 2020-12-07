@@ -111,7 +111,7 @@ public class Fragment3 extends Fragment{
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
 
-                        String msg = String.format("%d - %d - %d", year, month+1, date);
+                        String msg = String.format("%d-%d-%d", year, month+1, date);
                         phpdate = year+"-"+month+1+"-"+date;
                         edit1.setText(msg);
                         btnfalse();
