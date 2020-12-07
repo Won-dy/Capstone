@@ -101,6 +101,13 @@ public class AccountAddActivity extends AppCompatActivity {
 
         bSAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, bSList);
         bankSelectSpn.setAdapter(bSAdapter);
+        if (isUpdate == 1) {
+            accountNumET.setText(Sharedpreference.get_bankaccount(getApplicationContext(),"worker_bankaccount","memberinfo"));
+            for (int i = 0; i < bSList.size(); i++) {
+                if((Sharedpreference.get_bankname(getApplicationContext(),"worker_bankname","memberinfo")).equals(bSList.get(i)))
+                    bankSelectSpn.setSelection(i);
+            }
+        }
         bankSelectSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

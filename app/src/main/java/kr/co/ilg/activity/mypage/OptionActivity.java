@@ -20,7 +20,7 @@ public class OptionActivity extends Activity implements View.OnClickListener {
     Button servicepromise, changepassword, deletemb;
     Button[] buttons = {servicepromise, changepassword, deletemb};
     int[] buttonid = {R.id.servicepromise, R.id.changepassword, R.id.deletemb};
-    Switch switch1, switch2, switch3;
+    Switch switch1, switch2;
     Context mContext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class OptionActivity extends Activity implements View.OnClickListener {
         mContext=this;
         switch1 = findViewById(R.id.switch1);
         switch2 = findViewById(R.id.switch2);
-        switch3 = findViewById(R.id.switch3);
 
         boolean k =Sharedpreference.get_state(mContext,"switch1","state");
         switch1.setChecked(k);
