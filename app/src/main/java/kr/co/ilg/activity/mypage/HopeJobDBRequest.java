@@ -31,7 +31,7 @@ public class HopeJobDBRequest extends StringRequest {
         parameters.put("key", key);
         parameters.put("worker_email", worker_email); //데이터 넣기  ≒ putextra
         parameters.put("job_code", job_code);
-        parameters.put("hj_car  eer",hj_career);
+        parameters.put("hj_career",hj_career);
 
     }
 

@@ -77,6 +77,7 @@ public class SignupEmailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GmailSender sender = new GmailSender("sun83324@gmail.com", "sun0811****"); // 발신 이메일과 비밀번호 설정
                 Code = sender.getEmailCode();
+                Log.d("CODE : ",Code);
 
                 if (android.os.Build.VERSION.SDK_INT > 9) {
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

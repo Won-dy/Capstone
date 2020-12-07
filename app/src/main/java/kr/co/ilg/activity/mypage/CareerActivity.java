@@ -99,7 +99,7 @@ public class CareerActivity extends AppCompatActivity {
 
         cList = new ArrayList<>();
 
-        for (int i = 0; i < jobarray.length; i++) {
+        for (int i = 1; i < jobarray.length; i++) {
             cList.add(new CareerRVItem(jobarray[i]));
         }
 
@@ -150,6 +150,7 @@ public class CareerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = Sharedpreference.get_email(mContext, "worker_email","memberinfo");
                 Intent intent = new Intent(CareerActivity.this, AccountAddActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 Intent updateIntent = new Intent(CareerActivity.this, MyInfomanageActivity.class);
                 updateIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
