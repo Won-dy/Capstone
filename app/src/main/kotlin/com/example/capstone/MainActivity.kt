@@ -185,9 +185,11 @@ class MainActivity : Activity() {
                                                     Log.d("mytest", e.toString())
                                                 }
                                             }
-                                            val tokenRequest = TokenRequest(id, token, kListener)
-                                            val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                            queue3.add(tokenRequest)
+                                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
+                                                val tokenRequest = TokenRequest(id, token, kListener)
+                                                val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                                queue3.add(tokenRequest)
+                                            }
 
                                             intent() //
                                             //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
@@ -272,9 +274,11 @@ class MainActivity : Activity() {
                                                     Log.d("mytest", e.toString())
                                                 }
                                             }
-                                            val tokenRequest = TokenRequest(id, token, kListener)
-                                            val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                            queue3.add(tokenRequest)// 파일에 맵핑형식으로 저장// 파일에 맵핑형식으로 저장
+                                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
+                                                val tokenRequest = TokenRequest(id, token, kListener)
+                                                val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                                queue3.add(tokenRequest)
+                                            }
 
                                             intent() //
                                             //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
@@ -374,9 +378,11 @@ class MainActivity : Activity() {
                                                                     Log.d("mytest", e.toString())
                                                                 }
                                                             }
-                                                            val tokenRequest = TokenRequest(id, token, kListener)
-                                                            val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                                            queue3.add(tokenRequest)// 파일에 맵핑형식으로 저장파일에 맵핑형식으로 저장
+                                                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
+                                                                val tokenRequest = TokenRequest(id, token, kListener)
+                                                                val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                                                queue3.add(tokenRequest)
+                                                            }
 
                                                             intent() //
                                                             //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
@@ -489,9 +495,11 @@ class MainActivity : Activity() {
                                     Log.d("mytest", e.toString())
                                 }
                             }
-                            val tokenRequest = TokenRequest(id, token, kListener)
-                            val queue3 = Volley.newRequestQueue(this@MainActivity)
-                            queue3.add(tokenRequest)
+                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
+                                val tokenRequest = TokenRequest(id, token, kListener)
+                                val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                queue3.add(tokenRequest)
+                            }
 
                             intent() //
                             //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();

@@ -84,7 +84,6 @@ public class Fragment3 extends Fragment{
         Calendar2 = viewGroup.findViewById(R.id.cal2);
         rdgroup = viewGroup.findViewById(R.id.radiogroup);
         btn1 = viewGroup.findViewById(R.id.btn1);
-        btn1.setChecked(true);// 클릭되어있음.
         btn2 = viewGroup.findViewById(R.id.btn2);
         btn3 = viewGroup.findViewById(R.id.btn3);
         edit1 = viewGroup.findViewById(R.id.edt1);
@@ -96,15 +95,21 @@ public class Fragment3 extends Fragment{
         int d = cal.get(Calendar.DAY_OF_MONTH);
         search = viewGroup.findViewById(R.id.search);
 
-        if(d<10) {
-            edit1.setText(y + "-" + m + "-0" + d);
-            edit2.setText(y + "-"+(m+1) + "-0"+ d);
-        }
-        else {
-            edit1.setText(y + "-" + m + "-" + d);
-            edit2.setText(y + "-"+(m+1) + "-"+ d);
+        String between, between1;
 
+        if(d<10){
+            between1 = "-0";
         }
+        else  between1 = "-";
+
+        if(m+1<10){
+            between = "-0";
+        }
+        else  between = "-";
+
+        edit1.setText(y + between + m + between1 + d);
+        edit2.setText(y + between+(m+1) + between1 + d);
+
         phpdate = y+"-"+m+"-"+d;
 
         phpdate1 = y+"-"+(m+1)+"-"+d;
@@ -117,11 +122,18 @@ public class Fragment3 extends Fragment{
                 DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-                        String msg;
+                        String between1, between;
                         if(date<10){
-                            msg = String.format("%d-%d-0%d", year, month+1, date);
+                            between1 = "-0";
                         }
-                        else msg = String.format("%d-%d-%d", year, month+1, date);
+                        else  between1 = "-";
+
+                        if(month+1<10){
+                            between = "-0";
+                        }
+                        else  between = "-";
+                        String msg;
+                        msg = String.format("%d%s%d%s%d", year,between, month+1,between1,date);
 
                         phpdate = year+"-"+month+1+"-"+date;
                         edit1.setText(msg);
@@ -129,7 +141,7 @@ public class Fragment3 extends Fragment{
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 
-                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());    //입력한 날짜 이후로 클릭 안되게 옵션
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());    //현재날짜 이후로 클릭 안되게 옵션
                 dialog.show();
 
 
@@ -142,20 +154,26 @@ public class Fragment3 extends Fragment{
                 DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-                        String msg;
+                        String between1, between;
                         if(date<10){
-                            msg = String.format("%d-%d-0%d", year, month+1, date);
+                            between1 = "-0";
                         }
-                        else msg = String.format("%d-%d-%d", year, month+1, date);
+                        else  between1 = "-";
+
+                        if(month+1<10){
+                            between = "-0";
+                        }
+                        else  between = "-";
+                        String msg;
+                        msg = String.format("%d%s%d%s%d", year,between, month+1,between1,date);
                         edit2.setText(msg);
                         phpdate1 = year+"-"+month+1+"-"+date;
                         btnfalse();
                     }
                 }, cal1.get(Calendar.YEAR), cal1.get(Calendar.MONTH), cal1.get(Calendar.DATE));
 
-                dialog.getDatePicker().setMaxDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());    //현재날짜 이후로 클릭 안되게 옵션
                 dialog.show();
-
             }
         });
 
@@ -254,12 +272,19 @@ public class Fragment3 extends Fragment{
                     u--;
                     cal4.add(Calendar.MONTH,+5);
                 }
+                String between1, between;
+                if(cal2.get(Calendar.MONTH)<10){
+                    between1 = "-0";
+                }
+                else  between1 = "-";
+
                 if(cal2.get(Calendar.DAY_OF_MONTH)<10){
-                    date = cal2.get(Calendar.YEAR) + "-"+cal2.get(Calendar.MONTH) + "-0"+ cal2.get(Calendar.DAY_OF_MONTH);
+                    between = "-0";
                 }
-                else{
-                    date = cal2.get(Calendar.YEAR) + "-"+cal2.get(Calendar.MONTH) + "-"+ cal2.get(Calendar.DAY_OF_MONTH);
-                }
+                else  between = "-";
+
+                date = cal2.get(Calendar.YEAR) + between1+cal2.get(Calendar.MONTH) + between+ cal2.get(Calendar.DAY_OF_MONTH);
+
 
                 phpdate = cal2.get(Calendar.YEAR)+"-"+cal2.get(Calendar.MONTH)+"-"+cal2.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
@@ -275,12 +300,19 @@ public class Fragment3 extends Fragment{
                     u--;
                     cal4.add(Calendar.MONTH,+5);
                 }
+                String between1, between;
+                if(cal3.get(Calendar.MONTH)<10){
+                    between1 = "-0";
+                }
+                else  between1 = "-";
+
                 if(cal3.get(Calendar.DAY_OF_MONTH)<10){
-                    date = cal3.get(Calendar.YEAR) + "-"+cal3.get(Calendar.MONTH) + "-0"+ cal3.get(Calendar.DAY_OF_MONTH);
+                    between = "-0";
                 }
-                else{
-                    date = cal3.get(Calendar.YEAR) + "-"+cal3.get(Calendar.MONTH) + "-"+ cal3.get(Calendar.DAY_OF_MONTH);
-                }
+                else  between = "-";
+
+                date = cal3.get(Calendar.YEAR) + between1+cal3.get(Calendar.MONTH) + between+ cal3.get(Calendar.DAY_OF_MONTH);
+
                 phpdate = cal3.get(Calendar.YEAR)+"-"+cal3.get(Calendar.MONTH)+"-"+cal3.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
             }
@@ -294,12 +326,18 @@ public class Fragment3 extends Fragment{
                     p--;
                     cal3.add(Calendar.MONTH,+2);
                 }
+                String between1, between;
+                if(cal4.get(Calendar.MONTH)<10){
+                    between1 = "-0";
+                }
+                else  between1 = "-";
+
                 if(cal4.get(Calendar.DAY_OF_MONTH)<10){
-                    date = cal4.get(Calendar.YEAR) + "-"+cal4.get(Calendar.MONTH) + "-0"+ cal4.get(Calendar.DAY_OF_MONTH);
+                    between = "-0";
                 }
-                else{
-                    date = cal4.get(Calendar.YEAR) + "-"+cal4.get(Calendar.MONTH) + "-"+ cal4.get(Calendar.DAY_OF_MONTH);
-                }
+                else  between = "-";
+                date = cal4.get(Calendar.YEAR) + between1+cal4.get(Calendar.MONTH) + between+ cal4.get(Calendar.DAY_OF_MONTH);
+
                 phpdate = cal4.get(Calendar.YEAR)+"-"+cal4.get(Calendar.MONTH)+"-"+cal4.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
             }
@@ -310,8 +348,5 @@ public class Fragment3 extends Fragment{
         btn1.setChecked(false);
         btn2.setChecked(false);
         btn3.setChecked(false);
-
     }
-
-
 }

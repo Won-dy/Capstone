@@ -88,6 +88,7 @@
             android:id="@+id/switch2"
             android:thumb="@drawable/switch_thumb"
             android:track="@drawable/switch_track_selector"
+            android:checked="true"
             android:layout_gravity="center"/>
 
 
