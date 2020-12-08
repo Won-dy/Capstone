@@ -20,15 +20,14 @@ public class HopeJobDBRequest extends StringRequest {
 
 
 
-    public HopeJobDBRequest(String key, String worker_email,String job_code, String hj_career, Response.Listener<String> listener) { //생성자 부분이라 콜백메소드는 생략
-        // data            응답 처리 리스너
+    public HopeJobDBRequest(String worker_email,String job_code, String hj_career, Response.Listener<String> listener) { //생성자 부분이라 콜백메소드는 생략
+        // data 응답 처리 리스너
         super(Method.POST, URL, listener, null); //super로 가독성을 업!
         Log.d("mytest","호프잡");
 
         //데이터들
         Log.d("mytest","넘길때"+job_code+hj_career);
         parameters = new HashMap<>();
-        parameters.put("key", key);
         parameters.put("worker_email", worker_email); //데이터 넣기  ≒ putextra
         parameters.put("job_code", job_code);
         parameters.put("hj_career",hj_career);

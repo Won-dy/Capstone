@@ -47,6 +47,7 @@ public class AccountAddActivity extends AppCompatActivity {
     int[] job_code;
     EditText accountNumET;
     int isUpdate;  // 1 > 수정  0 > 회원가입
+    Request<String> b, c;
 
 
     @Override
@@ -84,8 +85,7 @@ public class AccountAddActivity extends AppCompatActivity {
         if (isUpdate == 1) {
             addBtn.setText("수 정");
             nextTimeTV.setVisibility(View.INVISIBLE);
-        }
-        else
+        } else
             addBtn.setText("등 록");
 
         bSList = new ArrayList<>();
@@ -102,9 +102,9 @@ public class AccountAddActivity extends AppCompatActivity {
         bSAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, bSList);
         bankSelectSpn.setAdapter(bSAdapter);
         if (isUpdate == 1) {
-            accountNumET.setText(Sharedpreference.get_bankaccount(getApplicationContext(),"worker_bankaccount","memberinfo"));
+            accountNumET.setText(Sharedpreference.get_bankaccount(getApplicationContext(), "worker_bankaccount", "memberinfo"));
             for (int i = 0; i < bSList.size(); i++) {
-                if((Sharedpreference.get_bankname(getApplicationContext(),"worker_bankname","memberinfo")).equals(bSList.get(i)))
+                if ((Sharedpreference.get_bankname(getApplicationContext(), "worker_bankname", "memberinfo")).equals(bSList.get(i)))
                     bankSelectSpn.setSelection(i);
             }
         }
@@ -134,16 +134,15 @@ public class AccountAddActivity extends AppCompatActivity {
                     Log.d("kkkkk", worker_bankaccount + worker_bankname);
                     Log.d("tttt", worker_email + "\n" + worker_pw + "\n" + worker_name + "\n" + worker_gender + "\n" + worker_birth + "\n" + worker_phonenum + "\n" + worker_certicipate + "\n" + worker_bankaccount + "\n" + worker_bankname);
 
+                    Log.d("tttt", job_code[0] + String.valueOf(job_code[1]) + job_code[2] + careerarray[0] + careerarray[1] + careerarray[2]);
                     Response.Listener responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
 
                             try {
-
                                 /*JSONObject jsonResponse = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                                 Log.d("mytesstt", response);
                                 Log.d("mytestlocal_code", jsonResponse.getString("local_code"));*/
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Log.d("mytest3", e.toString());
@@ -163,10 +162,11 @@ public class AccountAddActivity extends AppCompatActivity {
                     for (int i = 0; i < careerarray.length; i++) {
 
                         Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
-                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert", worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
+                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest(worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
                         RequestQueue queue2 = Volley.newRequestQueue(AccountAddActivity.this);
                         queue2.add(hopeJobInsert);
                     }
+
                     //시도,구군 SELECT LOCAL 해서 CODE가져와서 그 코드를 HOPELOCAL에 넣기
 
                     //hopejobinsert
@@ -233,7 +233,8 @@ public class AccountAddActivity extends AppCompatActivity {
                             }
                         }
                     };
-                    MemberDBRequest workerInsert = new MemberDBRequest("WorkerInsert", worker_email, worker_pw, worker_name, worker_gender, worker_birth, worker_phonenum, worker_certicipate," ", " ", responseListener);
+
+                    MemberDBRequest workerInsert = new MemberDBRequest("WorkerInsert", worker_email, worker_pw, worker_name, worker_gender, worker_birth, worker_phonenum, worker_certicipate, " ", " ", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(AccountAddActivity.this);
                     //queue.add(workerInsert);
                     //php쿼리 호출 순서를 정해줌 queue.add(workerInsert)실행되면 다음 거 실행하게
@@ -245,10 +246,11 @@ public class AccountAddActivity extends AppCompatActivity {
                     }
                     for (int i = 0; i < careerarray.length; i++) {
                         Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
-                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert", worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
+                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest(worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
                         RequestQueue queue2 = Volley.newRequestQueue(AccountAddActivity.this);
                         queue2.add(hopeJobInsert);
                     }
+
                     //시도,구군 SELECT LOCAL 해서 CODE가져와서 그 코드를 HOPELOCAL에 넣기
 
                     //hopejobinsert
