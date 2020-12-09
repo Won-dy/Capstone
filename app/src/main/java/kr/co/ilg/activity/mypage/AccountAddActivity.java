@@ -193,13 +193,12 @@ public class AccountAddActivity extends AppCompatActivity {
                             MemberDBRequest hopelocalInsert = new MemberDBRequest("HopeLocalInsert", worker_email, hope_local_sido, hope_local_sigugun, responseListener);
                             RequestQueue queue1 = Volley.newRequestQueue(AccountAddActivity.this);
                             queue1.add(hopelocalInsert);
-                            for (int i = careerarray.length - 1, j = 0; i >= 0; i--) {
+                            for (int i = 0; i < careerarray.length; i++) {
 
-                                Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[j]);
-                                HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert", worker_email, String.valueOf(job_code[i]), careerarray[j], responseListener);
+                                Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
+                                HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert",worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
                                 RequestQueue queue2 = Volley.newRequestQueue(AccountAddActivity.this);
                                 queue2.add(hopeJobInsert);
-                                j++;
                             }
                             //시도,구군 SELECT LOCAL 해서 CODE가져와서 그 코드를 HOPELOCAL에 넣기
 

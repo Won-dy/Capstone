@@ -32,13 +32,12 @@ public class SignupUserInfoActivity extends AppCompatActivity {
         Intent receiver = getIntent();
         worker_email = receiver.getExtras().getString("worker_email");
         worker_pw = receiver.getExtras().getString("worker_pw");
-
-
         signUpBtn = findViewById(R.id.signUpBtn);
         nameET = findViewById(R.id.nameET);
         birthET = findViewById(R.id.birthET);
         pnumET = findViewById(R.id.pnumET);
         rg = findViewById(R.id.rg);
+        worker_gender="남";
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
