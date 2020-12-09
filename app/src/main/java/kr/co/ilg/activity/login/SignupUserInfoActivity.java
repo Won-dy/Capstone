@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,17 +58,19 @@ public class SignupUserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                Intent intent = new Intent(SignupUserInfoActivity.this, CertificateConfirmActivity.class);
-                intent.putExtra("worker_email", worker_email);
-                intent.putExtra("worker_pw", worker_pw);
-                intent.putExtra("worker_gender", worker_gender);
-                intent.putExtra("worker_name", nameET.getText().toString());
-                intent.putExtra("worker_birth",birthET.getText().toString());
-                intent.putExtra("worker_phonenum", pnumET.getText().toString());
-                startActivity(intent);
+                if(((nameET.getText().toString()).trim()).equals("") || ((birthET.getText().toString()).trim()).equals("") || ((pnumET.getText().toString()).trim()).equals("")) {
+                    Toast.makeText(SignupUserInfoActivity.this, "모든 값을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(SignupUserInfoActivity.this, CertificateConfirmActivity.class);
+                    intent.putExtra("worker_email", worker_email);
+                    intent.putExtra("worker_pw", worker_pw);
+                    intent.putExtra("worker_gender", worker_gender);
+                    intent.putExtra("worker_name", nameET.getText().toString());
+                    intent.putExtra("worker_birth",birthET.getText().toString());
+                    intent.putExtra("worker_phonenum", pnumET.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
-
     }
 }
