@@ -41,6 +41,18 @@ public class Sharedpreference {
         Boolean value = prefs.getBoolean(key, false);
         return value;
     }
+    public static void set_state1(Context context, String key, Boolean value, String name) {
+        SharedPreferences prefs = getPreferences(name,context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+
+    }
+    public static Boolean get_state1(Context context, String key, String name) {
+        SharedPreferences prefs = getPreferences(name,context);
+        Boolean value = prefs.getBoolean(key, true);
+        return value;
+    }
     public static void set_id(Context context, String key, String value, String name) {
         SharedPreferences prefs = getPreferences(name,context);
         SharedPreferences.Editor editor = prefs.edit();
@@ -158,7 +170,7 @@ public class Sharedpreference {
 
     }public static String get_Phonenum(Context context, String key, String name) {
         SharedPreferences prefs = getPreferences(name,context);
-        String value = prefs.getString(key, "memberinfo");
+        String value = prefs.getString(key, null);
         return value;
     } // 휴대전화번호 저장
 
@@ -170,7 +182,7 @@ public class Sharedpreference {
 
     }public static String get_bankaccount(Context context, String key, String name) {
         SharedPreferences prefs = getPreferences(name,context);
-        String value = prefs.getString(key, "memberinfo");
+        String value = prefs.getString(key, null);
         return value;
     } // 은행계좌 저장
     public static void set_Bankname(Context context, String key, String value, String name) {
@@ -194,7 +206,7 @@ public class Sharedpreference {
 
     }public static String get_introduce(Context context, String key, String name) {
         SharedPreferences prefs = getPreferences(name,context);
-        String value = prefs.getString(key, "memberinfo");
+        String value = prefs.getString(key, null);
         return value;
     } // 한줄소개 저장
     public static void set_Jobname(Context context, String key, String value, String name) {

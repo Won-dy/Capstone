@@ -42,7 +42,7 @@ public class AccountAddActivity extends AppCompatActivity {
     Spinner bankSelectSpn;
     ArrayList<String> bSList;
     ArrayAdapter<String> bSAdapter;
-    TextView nextTimeTV;
+    //TextView nextTimeTV;
     String worker_email, worker_pw, worker_name, worker_gender, worker_birth, worker_phonenum, hope_local_sido, hope_local_sigugun, worker_bankname, worker_bankaccount, worker_certicipate;
     String[] jobarray, careerarray;
     int[] job_code;
@@ -77,14 +77,14 @@ public class AccountAddActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), "어디서 왔나~ " + isUpdate, Toast.LENGTH_SHORT).show();
 
         addBtn = findViewById(R.id.addBtn);
-        nextTimeTV = findViewById(R.id.nextTimeTV);
+        //nextTimeTV = findViewById(R.id.nextTimeTV);
         bankSelectSpn = findViewById(R.id.bankSelectSpn);
         accountNumET = findViewById(R.id.accountNumET);
         //nameET = findViewById(R.id.nameET);
 
         if (isUpdate == 1) {
             addBtn.setText("수 정");
-            nextTimeTV.setVisibility(View.INVISIBLE);
+            //nextTimeTV.setVisibility(View.INVISIBLE);
         } else
             addBtn.setText("등 록");
 
@@ -101,6 +101,13 @@ public class AccountAddActivity extends AppCompatActivity {
 
         bSAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, bSList);
         bankSelectSpn.setAdapter(bSAdapter);
+        if (isUpdate == 1) {
+            accountNumET.setText(Sharedpreference.get_bankaccount(getApplicationContext(), "worker_bankaccount", "memberinfo"));
+            for (int i = 0; i < bSList.size(); i++) {
+                if ((Sharedpreference.get_bankname(getApplicationContext(), "worker_bankname", "memberinfo")).equals(bSList.get(i)))
+                    bankSelectSpn.setSelection(i);
+            }
+        }
         bankSelectSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -196,7 +203,8 @@ public class AccountAddActivity extends AppCompatActivity {
                             }
                             //시도,구군 SELECT LOCAL 해서 CODE가져와서 그 코드를 HOPELOCAL에 넣기
 
-                            //hopejobinsert
+                    //hopejobinsert
+                    Toast.makeText(AccountAddActivity.this, "회원가입 완료", Toast.LENGTH_SHORT).show();
 
                             startActivity(intent);
                         }
@@ -233,6 +241,7 @@ public class AccountAddActivity extends AppCompatActivity {
             }
         }); // 회원가입 입력한 정보들을 한번에 DB에 넣어줌
 
+/*
         nextTimeTV.setPaintFlags(nextTimeTV.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         nextTimeTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,7 +272,8 @@ public class AccountAddActivity extends AppCompatActivity {
                             }
                         }
                     };
-                    MemberDBRequest workerInsert = new MemberDBRequest("WorkerInsert", worker_email, worker_pw, worker_name, worker_gender, worker_birth, worker_phonenum, worker_certicipate, worker_bankaccount, worker_bankname, responseListener);
+
+                    MemberDBRequest workerInsert = new MemberDBRequest("WorkerInsert", worker_email, worker_pw, worker_name, worker_gender, worker_birth, worker_phonenum, worker_certicipate, " ", " ", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(AccountAddActivity.this);
                     //queue.add(workerInsert);
                     //php쿼리 호출 순서를 정해줌 queue.add(workerInsert)실행되면 다음 거 실행하게
@@ -273,14 +283,13 @@ public class AccountAddActivity extends AppCompatActivity {
                         RequestQueue queue1 = Volley.newRequestQueue(AccountAddActivity.this);
                         queue1.add(hopelocalInsert);
                     }
-                    for (int i = careerarray.length - 1, j = 0; i >= 0; i--) {
-
-                        Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[j]);
-                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert", worker_email, String.valueOf(job_code[i]), careerarray[j], responseListener);
+                    for (int i = 0; i < careerarray.length; i++) {
+                        Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
+                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert",worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
                         RequestQueue queue2 = Volley.newRequestQueue(AccountAddActivity.this);
                         queue2.add(hopeJobInsert);
-                        j++;
                     }
+
                     //시도,구군 SELECT LOCAL 해서 CODE가져와서 그 코드를 HOPELOCAL에 넣기
 
                     //hopejobinsert
@@ -290,6 +299,7 @@ public class AccountAddActivity extends AppCompatActivity {
                 }
             }
         });
+*/
     }
 }
 
