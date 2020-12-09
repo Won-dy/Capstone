@@ -162,7 +162,7 @@ public class AccountAddActivity extends AppCompatActivity {
                     for (int i = 0; i < careerarray.length; i++) {
 
                         Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
-                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest(worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
+                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert",worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
                         RequestQueue queue2 = Volley.newRequestQueue(AccountAddActivity.this);
                         queue2.add(hopeJobInsert);
                     }
@@ -246,7 +246,7 @@ public class AccountAddActivity extends AppCompatActivity {
                     }
                     for (int i = 0; i < careerarray.length; i++) {
                         Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
-                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest(worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
+                        HopeJobDBRequest hopeJobInsert = new HopeJobDBRequest("HopeJobInsert",worker_email, String.valueOf(job_code[i]), careerarray[i], responseListener);
                         RequestQueue queue2 = Volley.newRequestQueue(AccountAddActivity.this);
                         queue2.add(hopeJobInsert);
                     }

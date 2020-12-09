@@ -170,7 +170,7 @@ public class Sharedpreference {
 
     }public static String get_Phonenum(Context context, String key, String name) {
         SharedPreferences prefs = getPreferences(name,context);
-        String value = prefs.getString(key, "memberinfo");
+        String value = prefs.getString(key, null);
         return value;
     } // 휴대전화번호 저장
 
@@ -182,7 +182,7 @@ public class Sharedpreference {
 
     }public static String get_bankaccount(Context context, String key, String name) {
         SharedPreferences prefs = getPreferences(name,context);
-        String value = prefs.getString(key, "memberinfo");
+        String value = prefs.getString(key, null);
         return value;
     } // 은행계좌 저장
     public static void set_Bankname(Context context, String key, String value, String name) {
@@ -206,7 +206,7 @@ public class Sharedpreference {
 
     }public static String get_introduce(Context context, String key, String name) {
         SharedPreferences prefs = getPreferences(name,context);
-        String value = prefs.getString(key, "memberinfo");
+        String value = prefs.getString(key, null);
         return value;
     } // 한줄소개 저장
     public static void set_Jobname(Context context, String key, String value, String name) {

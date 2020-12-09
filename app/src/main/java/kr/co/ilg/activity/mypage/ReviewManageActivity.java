@@ -101,6 +101,12 @@ public class ReviewManageActivity extends Activity {
                         } else { //모든 리뷰를 한꺼번에 다 갖고온 후 키값을 통해서 구분하여 list에 넣어주기
                         }
                     } // 값넣기*/
+                    /*if(array.length()==0){
+                        key[0] = "0";
+                        cList.add(new mypagereviewitem(" ", "첫 리뷰를 써주세요!!", " ", " "));
+                        key[1] = "1";
+                        cList.add(new mypagereviewitem(" ", "첫 리뷰를 써주세요!!", " ", " "));
+                    }*/
                     myAdapter = new mypagereviewAdapter(cList);
                     mRecyclerView.setAdapter(myAdapter);
                     myAdapter.setOnItemClickListener(new mypagereviewAdapter.OnItemClickListener() { // 리싸이클러뷰 속 버튼이 클릭될 시 이벤트
@@ -165,6 +171,10 @@ public class ReviewManageActivity extends Activity {
                             Log.d("asdfasdfasdf",name[i] + " " + contents[i]+ " "+ datetime[i]);
                         }
                     }
+                    /*if(k==0){
+                        cList.add(new mypagereviewitem("", "첫 리뷰를 써주세요!!", "", ""));
+                        flag=0;
+                    }*/
                     myAdapter = new mypagereviewAdapter(cList);
                     mRecyclerView.setAdapter(myAdapter); // 값구분을 통해서 다른 list에 넣어준다
 
@@ -178,6 +188,10 @@ public class ReviewManageActivity extends Activity {
                             Log.d("asdfasdfasdf",name[i] + " " + contents[i]+ " "+ datetime[i]);
                         }
                     }
+                    /*if(k==0){
+                        cList.add(new mypagereviewitem("", "첫 리뷰를 써주세요!!", "", ""));
+                        flag=1;
+                    }*/
                     myAdapter = new mypagereviewAdapter(cList);// 값구분을 통해서 다른 list에 넣어준다
                     mRecyclerView.setAdapter(myAdapter);
                 }

@@ -65,6 +65,7 @@ public class MyInfomanageActivity extends Activity {
         TextView modifyHL = findViewById(R.id.modifyHL);
         TextView modifyHJC = findViewById(R.id.modifyHJC);
 
+        TextView finalIntroduce = introduce;
         modifyprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,15 +174,19 @@ public class MyInfomanageActivity extends Activity {
 
         myname.setText(Sharedpreference.get_Nickname(mContext, "worker_name","memberinfo"));
         age.setText(Sharedpreference.get_Birth(mContext, "worker_birth","memberinfo"));
-        phonenum.setText(Sharedpreference.get_Phonenum(mContext, "worker_phonenum","memberinfo"));
+
+        if(!Sharedpreference.get_Phonenum(mContext, "worker_phonenum","memberinfo").equals("null")) {
+            phonenum.setText(Sharedpreference.get_Phonenum(mContext, "worker_phonenum", "memberinfo"));
+        }
+        else  phonenum.setText("연락처 추가 요망");
+
+        if(!Sharedpreference.get_introduce(mContext, "worker_introduce","memberinfo").equals("null")) {
+            introduce.setText(Sharedpreference.get_introduce(mContext, "worker_introduce", "memberinfo"));
+        }
+        else introduce.setText("잘부탁드립니다.");
+
         email.setText(Sharedpreference.get_email(mContext, "worker_email","memberinfo"));
-        introduce.setText(Sharedpreference.get_introduce(mContext, "worker_introduce","memberinfo"));
 
-
-
-        /*hope_job_career.setText(Sharedpreference.get_Jobname(mContext,"jobname0") + " " + Sharedpreference.get_Jobcareer(mContext,"jobcareer0")+"\n"
-                +Sharedpreference.get_Jobname(mContext,"jobname1") + " " + Sharedpreference.get_Jobcareer(mContext,"jobcareer1")+"\n"
-                +Sharedpreference.get_Jobname(mContext,"jobname2") + " " + Sharedpreference.get_Jobcareer(mContext,"jobcareer2"));*/
 
         hope_local.setText(Sharedpreference.get_Hope_local_sido(mContext, "local_sido","memberinfo") + " " + Sharedpreference.get_Hope_local_sigugun(mContext, "local_sigugun","memberinfo"));
     }

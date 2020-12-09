@@ -95,20 +95,20 @@ public class Fragment3 extends Fragment{
         int d = cal.get(Calendar.DAY_OF_MONTH);
         search = viewGroup.findViewById(R.id.search);
 
-        String between, between1;
+        String between2, between3;
 
         if(d<10){
-            between1 = "-0";
+            between2 = "-0";
         }
-        else  between1 = "-";
+        else  between2 = "-";
 
         if(m+1<10){
-            between = "-0";
+            between3 = "-0";
         }
-        else  between = "-";
+        else  between3 = "-";
 
-        edit1.setText(y + between + m + between1 + d);
-        edit2.setText(y + between+(m+1) + between1 + d);
+        edit1.setText(y + between3 + m + between2 + d);
+        edit2.setText(y + between3+(m+1) + between2 + d);
 
         phpdate = y+"-"+m+"-"+d;
 
@@ -262,6 +262,9 @@ public class Fragment3 extends Fragment{
     }
     RadioGroup.OnCheckedChangeListener radioGroupButtonChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+            int m1 = cal.get(Calendar.MONTH);
+            int y1 = cal.get(Calendar.YEAR);
+            int d1 = cal.get(Calendar.DAY_OF_MONTH);
             if(i == R.id.btn1 && m==0) {
                 m++;
                 if (p!=0) {
@@ -341,6 +344,17 @@ public class Fragment3 extends Fragment{
                 phpdate = cal4.get(Calendar.YEAR)+"-"+cal4.get(Calendar.MONTH)+"-"+cal4.get(Calendar.DAY_OF_MONTH);
                 edit1.setText(date);
             }
+            String between2,between3;
+            if(d1<10){
+                between2 = "-0";
+            }
+            else  between2 = "-";
+
+            if(m1+1<10){
+                between3 = "-0";
+            }
+            else  between3 = "-";
+            edit2.setText(y1 + between3+(m1+1) + between2 + d1);
 
         }
     };
