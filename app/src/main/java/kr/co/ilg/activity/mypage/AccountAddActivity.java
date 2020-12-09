@@ -41,7 +41,7 @@ public class AccountAddActivity extends AppCompatActivity {
     Spinner bankSelectSpn;
     ArrayList<String> bSList;
     ArrayAdapter<String> bSAdapter;
-    TextView nextTimeTV;
+    //TextView nextTimeTV;
     String worker_email, worker_pw, worker_name, worker_gender, worker_birth, worker_phonenum, hope_local_sido, hope_local_sigugun, worker_bankname, worker_bankaccount, worker_certicipate;
     String[] jobarray, careerarray;
     int[] job_code;
@@ -77,19 +77,18 @@ public class AccountAddActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), "어디서 왔나~ " + isUpdate, Toast.LENGTH_SHORT).show();
 
         addBtn = findViewById(R.id.addBtn);
-        nextTimeTV = findViewById(R.id.nextTimeTV);
+        //nextTimeTV = findViewById(R.id.nextTimeTV);
         bankSelectSpn = findViewById(R.id.bankSelectSpn);
         accountNumET = findViewById(R.id.accountNumET);
         //nameET = findViewById(R.id.nameET);
 
         if (isUpdate == 1) {
             addBtn.setText("수 정");
-            nextTimeTV.setVisibility(View.INVISIBLE);
+            //nextTimeTV.setVisibility(View.INVISIBLE);
         } else
             addBtn.setText("등 록");
 
         bSList = new ArrayList<>();
-        bSList.add("은행");
         bSList.add("KB 국민");
         bSList.add("신한");
         bSList.add("농협");
@@ -170,6 +169,7 @@ public class AccountAddActivity extends AppCompatActivity {
                     //시도,구군 SELECT LOCAL 해서 CODE가져와서 그 코드를 HOPELOCAL에 넣기
 
                     //hopejobinsert
+                    Toast.makeText(AccountAddActivity.this, "회원가입 완료", Toast.LENGTH_SHORT).show();
 
                     startActivity(intent);
                 } else {  // 계좌 수정
@@ -203,6 +203,7 @@ public class AccountAddActivity extends AppCompatActivity {
             }
         }); // 회원가입 입력한 정보들을 한번에 DB에 넣어줌
 
+/*
         nextTimeTV.setPaintFlags(nextTimeTV.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         nextTimeTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,6 +261,7 @@ public class AccountAddActivity extends AppCompatActivity {
                 }
             }
         });
+*/
     }
 }
 

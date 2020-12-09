@@ -62,6 +62,8 @@ public class SignupEmailActivity extends AppCompatActivity {
                 if (Code.equals(codeET.getText().toString()) ) {
                     Toast.makeText(SignupEmailActivity.this, "인증 완료", Toast.LENGTH_SHORT).show();
                     codeBtn.setEnabled(false);
+                    emailET.setFocusable(false);
+                    codeET.setFocusable(false);
                     sign = true;
                 }
                 else{
