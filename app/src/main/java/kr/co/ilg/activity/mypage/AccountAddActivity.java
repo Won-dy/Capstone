@@ -32,6 +32,7 @@ import java.util.ArrayList;
 //import kr.co.ilg.activity.findwork.MainActivity;
 //import kr.co.ilg.activity.login.LoginActivity;
 import com.example.capstone.MainActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.network.response.JSONArrayResponse;
 
 import kr.co.ilg.activity.findwork.Sharedpreference;
@@ -48,6 +49,7 @@ public class AccountAddActivity extends AppCompatActivity {
     int[] job_code;
     EditText accountNumET;
     int isUpdate;  // 1 > 수정  0 > 회원가입
+    String token = FirebaseInstanceId.getInstance().getToken();
 
 
     @Override
@@ -193,6 +195,9 @@ public class AccountAddActivity extends AppCompatActivity {
                             MemberDBRequest hopelocalInsert = new MemberDBRequest("HopeLocalInsert", worker_email, hope_local_sido, hope_local_sigugun, responseListener);
                             RequestQueue queue1 = Volley.newRequestQueue(AccountAddActivity.this);
                             queue1.add(hopelocalInsert);
+                            MemberDBRequest tokenInsert = new MemberDBRequest(worker_email, token, responseListener);
+                            RequestQueue queue3 = Volley.newRequestQueue(AccountAddActivity.this);
+                            queue3.add(tokenInsert);
                             for (int i = 0; i < careerarray.length; i++) {
 
                                 Log.d("mytestjobcode", "" + job_code[i] + "," + careerarray[i]);
