@@ -13,6 +13,7 @@ import java.util.Map;
 public class MemberDBRequest extends StringRequest {
     final static private String URL = "http://14.63.162.160/Insert2.php";
     final static private String URL1 = "http://14.63.162.160/InsertCheck.php";
+    final static private String URL2 = "http://14.63.162.160/accountpermission.php";
     private Map<String, String> parameters;
 
     //요청                클라이언트로 전송할 데이터(userID)
@@ -66,13 +67,13 @@ public class MemberDBRequest extends StringRequest {
         parameters.put("hj_career",hj_career);
 
     }
-    public MemberDBRequest(String worker_email, Response.Listener<String> listener) { //생성자 부분이라 콜백메소드는 생략
-        // data            응답 처리 리스너
-        super(Method.POST, URL1, listener, null); //super로 가독성을 업!
+    public MemberDBRequest(String worker_email, String token, Response.Listener<String> listener) {
+        super(Method.POST, URL2, listener, null); //super로 가독성을 업!
 
         //데이터들
         parameters = new HashMap<>();
         parameters.put("worker_email", worker_email); //데이터 넣기  ≒ putextra
+        parameters.put("token", token);
 
     }
 //    public MemberDBRequest(String key, String worker_email, String worker_pw, String worker_name, String worker_gender, String worker_birth, String worker_phonenum, String worker_certicipate, String worker_bankaccount, String worker_bankname,String local_sido, String local_sigugun, String jobcode0, String career0,String jobcode1, String career1,String jobcode2, String career2,int k, Response.Listener<String> listener) { //생성자 부분이라 콜백메소드는 생략

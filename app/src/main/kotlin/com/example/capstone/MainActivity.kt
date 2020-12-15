@@ -130,69 +130,74 @@ class MainActivity : Activity() {
                                         var jobcode = Array<String>(3) { "" }
                                         var a = jResponse.getJSONObject("response")
                                         val isExistWorker = a.getBoolean("tryLogin")
+                                        val approved = a.getString("worker_is_approved")
                                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
-                                            var worker_email = a.getString("worker_email")
-                                            var worker_name = a.getString("worker_name")
-                                            var password = a.getString("worker_pw")
-                                            var worker_gender = a.getString("worker_gender")
-                                            var worker_birth = a.getString("worker_birth")
-                                            var worker_phonenum = a.getString("worker_phonenum")
-                                            var worker_bankaccount = a.getString("worker_bankaccount")
-                                            var worker_bankname = a.getString("worker_bankname")
-                                            var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
-                                            var local_sido = a.getString("local_sido")
-                                            var local_sigugun = a.getString("local_sigugun")
-                                            var j=0
+                                            if(approved.equals("1")) {
+                                                var worker_email = a.getString("worker_email")
+                                                var worker_name = a.getString("worker_name")
+                                                var password = a.getString("worker_pw")
+                                                var worker_gender = a.getString("worker_gender")
+                                                var worker_birth = a.getString("worker_birth")
+                                                var worker_phonenum = a.getString("worker_phonenum")
+                                                var worker_bankaccount = a.getString("worker_bankaccount")
+                                                var worker_bankname = a.getString("worker_bankname")
+                                                var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
+                                                var local_sido = a.getString("local_sido")
+                                                var local_sigugun = a.getString("local_sigugun")
+                                                var j = 0
 
-                                            var k = arrayOf("0", "1", "2")
-                                            for (i in 0 until a.length()-12) {
-                                                var s = a.getJSONObject(k[i])
-                                                jobname[i] = s.getString("jobname")
-                                                jobcareer[i] = s.getString("jobcareer")
-                                                jobcode[i]=s.getString("job_code")
-                                                Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
-                                                Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
-                                                Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
-                                                j++;
-                                            } ///실행되다가
+                                                var k = arrayOf("0", "1", "2")
+                                                for (i in 0 until a.length() - 13) {
+                                                    var s = a.getJSONObject(k[i])
+                                                    jobname[i] = s.getString("jobname")
+                                                    jobcareer[i] = s.getString("jobcareer")
+                                                    jobcode[i] = s.getString("job_code")
+                                                    Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
+                                                    Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
+                                                    Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
+                                                    j++;
+                                                } ///실행되다가
 
-                                            Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
+                                                Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
 
-                                            Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
-                                            Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
-                                            Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
-                                            Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
-                                            Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
-                                            Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
-                                            Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
-                                            Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
-                                            Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
+                                                Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
+                                                Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
+                                                Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
+                                                Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
+                                                Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
+                                                Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
+                                                Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
+                                                Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
+                                                Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
 
-                                            Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
-                                            Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")// 파일에 맵핑형식으로 저장// 파일에 맵핑형식으로 저장
+                                                Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
+                                                Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")// 파일에 맵핑형식으로 저장// 파일에 맵핑형식으로 저장
 
-                                            Toast.makeText(this@MainActivity, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                                            val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
-                                            val token = FirebaseInstanceId.getInstance().token
-                                            Log.d("asdfasdf", token)
+                                                Toast.makeText(this@MainActivity, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                                                val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
+                                                val token = FirebaseInstanceId.getInstance().token
+                                                Log.d("asdfasdf", token)
 
 
-                                            val kListener: Response.Listener<String?> = Response.Listener<String?>
-                                            // Generics를 String타입으로 한정
-                                            {
-                                                try {
-                                                } catch (e: java.lang.Exception) {
-                                                    Log.d("mytest", e.toString())
+                                                val kListener: Response.Listener<String?> = Response.Listener<String?>
+                                                // Generics를 String타입으로 한정
+                                                {
+                                                    try {
+                                                    } catch (e: java.lang.Exception) {
+                                                        Log.d("mytest", e.toString())
+                                                    }
                                                 }
-                                            }
-                                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
-                                                val tokenRequest = TokenRequest(id, token, kListener)
-                                                val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                                queue3.add(tokenRequest)
-                                            }
+                                                if (Sharedpreference.get_state1(applicationContext(), "switch2", "state")) {
+                                                    val tokenRequest = TokenRequest(id, token, kListener)
+                                                    val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                                    queue3.add(tokenRequest)
+                                                }
 
-                                            intent() //
-                                            //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
+                                                intent() //
+                                            }
+                                            else {
+                                                Toast.makeText(this@MainActivity, "회원가입 승인 요청 중입니다.", Toast.LENGTH_SHORT).show();
+                                            }
                                         } else {  // 회원이 존재하지 않는다면
                                             Sharedpreference.set_email(applicationContext(), "email", user.kakaoAccount?.email, "memberinfo") // 이메일만 갖고온 후 나머지 정보는 회원가입 절차에서 입력
 
@@ -221,67 +226,72 @@ class MainActivity : Activity() {
                                         var jobcode = Array<String>(3) { "" }
                                         var a = jResponse.getJSONObject("response")
                                         val isExistWorker = a.getBoolean("tryLogin")
+                                        val approved = a.getString("worker_is_approved")
                                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
-                                            var worker_email = a.getString("worker_email")
-                                            var worker_name = a.getString("worker_name")
-                                            var password = a.getString("worker_pw")
-                                            var worker_gender = a.getString("worker_gender")
-                                            var worker_birth = a.getString("worker_birth")
-                                            var worker_phonenum = a.getString("worker_phonenum")
-                                            var worker_bankaccount = a.getString("worker_bankaccount")
-                                            var worker_bankname = a.getString("worker_bankname")
-                                            var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
-                                            var local_sido = a.getString("local_sido")
-                                            var local_sigugun = a.getString("local_sigugun")
-                                            var j=0
+                                            if(approved.equals("1")) {
+                                                var worker_email = a.getString("worker_email")
+                                                var worker_name = a.getString("worker_name")
+                                                var password = a.getString("worker_pw")
+                                                var worker_gender = a.getString("worker_gender")
+                                                var worker_birth = a.getString("worker_birth")
+                                                var worker_phonenum = a.getString("worker_phonenum")
+                                                var worker_bankaccount = a.getString("worker_bankaccount")
+                                                var worker_bankname = a.getString("worker_bankname")
+                                                var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
+                                                var local_sido = a.getString("local_sido")
+                                                var local_sigugun = a.getString("local_sigugun")
+                                                var j = 0
 
-                                            var k = arrayOf("0", "1", "2")
-                                            for (i in 0 until a.length()-12) {
-                                                var s = a.getJSONObject(k[i])
-                                                jobname[i] = s.getString("jobname")
-                                                jobcareer[i] = s.getString("jobcareer")
-                                                jobcode[i]=s.getString("job_code")
-                                                Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
-                                                Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
-                                                Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
-                                                j++;
-                                            } ///실행되다가
+                                                var k = arrayOf("0", "1", "2")
+                                                for (i in 0 until a.length() - 13) {
+                                                    var s = a.getJSONObject(k[i])
+                                                    jobname[i] = s.getString("jobname")
+                                                    jobcareer[i] = s.getString("jobcareer")
+                                                    jobcode[i] = s.getString("job_code")
+                                                    Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
+                                                    Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
+                                                    Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
+                                                    j++;
+                                                } ///실행되다가
 
-                                            Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
+                                                Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
 
-                                            Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
-                                            Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
-                                            Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
-                                            Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
-                                            Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
-                                            Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
-                                            Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
-                                            Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
-                                            Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
+                                                Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
+                                                Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
+                                                Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
+                                                Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
+                                                Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
+                                                Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
+                                                Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
+                                                Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
+                                                Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
 
-                                            Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
-                                            Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")
-                                            val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
-                                            val token = FirebaseInstanceId.getInstance().token
-                                            Log.d("asdfasdf", token)
+                                                Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
+                                                Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")
+                                                val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
+                                                val token = FirebaseInstanceId.getInstance().token
+                                                Log.d("asdfasdf", token)
 
 
-                                            val kListener: Response.Listener<String?> = Response.Listener<String?>
-                                            // Generics를 String타입으로 한정
-                                            {
-                                                try {
-                                                } catch (e: java.lang.Exception) {
-                                                    Log.d("mytest", e.toString())
+                                                val kListener: Response.Listener<String?> = Response.Listener<String?>
+                                                // Generics를 String타입으로 한정
+                                                {
+                                                    try {
+                                                    } catch (e: java.lang.Exception) {
+                                                        Log.d("mytest", e.toString())
+                                                    }
                                                 }
-                                            }
-                                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
-                                                val tokenRequest = TokenRequest(id, token, kListener)
-                                                val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                                queue3.add(tokenRequest)
-                                            }
+                                                if (Sharedpreference.get_state1(applicationContext(), "switch2", "state")) {
+                                                    val tokenRequest = TokenRequest(id, token, kListener)
+                                                    val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                                    queue3.add(tokenRequest)
+                                                }
 
-                                            intent() //
-                                            //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
+                                                intent() //
+                                            }
+                                            else {
+                                                Toast.makeText(this@MainActivity, "회원가입 승인 요청 중입니다.", Toast.LENGTH_SHORT).show();
+                                            }
                                         } else {  // 회원이 존재하지 않는다면
                                             Sharedpreference.set_email(applicationContext(), "worker_email", user.id.toString(), "memberinfo")
 
@@ -325,66 +335,73 @@ class MainActivity : Activity() {
                                                         var jobcode = Array<String>(3) { "" }
                                                         var a = jResponse.getJSONObject("response")
                                                         val isExistWorker = a.getBoolean("tryLogin")
+                                                        val approved = a.getString("worker_is_approved")
                                                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
-                                                            var worker_email = a.getString("worker_email")
-                                                            var worker_name = a.getString("worker_name")
-                                                            var password = a.getString("worker_pw")
-                                                            var worker_gender = a.getString("worker_gender")
-                                                            var worker_birth = a.getString("worker_birth")
-                                                            var worker_phonenum = a.getString("worker_phonenum")
-                                                            var worker_bankaccount = a.getString("worker_bankaccount")
-                                                            var worker_bankname = a.getString("worker_bankname")
-                                                            var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
-                                                            var local_sido = a.getString("local_sido")
-                                                            var local_sigugun = a.getString("local_sigugun")
-                                                            var j=0
+                                                            if(approved.equals("1")) {
+                                                                var worker_email = a.getString("worker_email")
+                                                                var worker_name = a.getString("worker_name")
+                                                                var password = a.getString("worker_pw")
+                                                                var worker_gender = a.getString("worker_gender")
+                                                                var worker_birth = a.getString("worker_birth")
+                                                                var worker_phonenum = a.getString("worker_phonenum")
+                                                                var worker_bankaccount = a.getString("worker_bankaccount")
+                                                                var worker_bankname = a.getString("worker_bankname")
+                                                                var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
+                                                                var local_sido = a.getString("local_sido")
+                                                                var local_sigugun = a.getString("local_sigugun")
+                                                                var j = 0
 
-                                                            var k = arrayOf("0", "1", "2")
-                                                            for (i in 0 until a.length()-12) {
-                                                                var s = a.getJSONObject(k[i])
-                                                                jobname[i] = s.getString("jobname")
-                                                                jobcareer[i] = s.getString("jobcareer")
-                                                                jobcode[i]=s.getString("job_code")
-                                                                Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
-                                                                Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
-                                                                Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
-                                                                j++;
-                                                            } ///실행되다가
+                                                                var k = arrayOf("0", "1", "2")
+                                                                for (i in 0 until a.length() - 13) {
+                                                                    var s = a.getJSONObject(k[i])
+                                                                    jobname[i] = s.getString("jobname")
+                                                                    jobcareer[i] = s.getString("jobcareer")
+                                                                    jobcode[i] = s.getString("job_code")
+                                                                    Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
+                                                                    Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
+                                                                    Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
+                                                                    j++;
+                                                                } ///실행되다가
 
-                                                            Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
+                                                                Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
 
-                                                            Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
-                                                            Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
-                                                            Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
-                                                            Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
-                                                            Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
-                                                            Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
-                                                            Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
-                                                            Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
-                                                            Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
+                                                                Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
+                                                                Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
+                                                                Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
+                                                                Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
+                                                                Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
+                                                                Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
+                                                                Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
+                                                                Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
+                                                                Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
 
-                                                            Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
-                                                            Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")
-                                                            val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
-                                                            val token = FirebaseInstanceId.getInstance().token
-                                                            Log.d("asdfasdf", token)
+                                                                Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
+                                                                Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")
+                                                                val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
+                                                                val token = FirebaseInstanceId.getInstance().token
+                                                                Log.d("asdfasdf", token)
 
 
-                                                            val kListener: Response.Listener<String?> = Response.Listener<String?>
-                                                            // Generics를 String타입으로 한정
-                                                            {
-                                                                try {
-                                                                } catch (e: java.lang.Exception) {
-                                                                    Log.d("mytest", e.toString())
+                                                                val kListener: Response.Listener<String?> = Response.Listener<String?>
+                                                                // Generics를 String타입으로 한정
+                                                                {
+                                                                    try {
+                                                                    } catch (e: java.lang.Exception) {
+                                                                        Log.d("mytest", e.toString())
+                                                                    }
                                                                 }
-                                                            }
-                                                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
-                                                                val tokenRequest = TokenRequest(id, token, kListener)
-                                                                val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                                                queue3.add(tokenRequest)
+                                                                if (Sharedpreference.get_state1(applicationContext(), "switch2", "state")) {
+                                                                    val tokenRequest = TokenRequest(id, token, kListener)
+                                                                    val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                                                    queue3.add(tokenRequest)
+                                                                }
+
+                                                                intent() //
                                                             }
 
-                                                            intent() //
+                                                            else {
+                                                                Toast.makeText(this@MainActivity, "회원가입 승인 요청 중입니다.", Toast.LENGTH_SHORT).show();
+                                                            }
                                                             //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
                                                         } else {  // 회원이 존재하지 않는다면
                                                             Sharedpreference.set_email(applicationContext(), "worker_email", user.kakaoAccount?.email, "memberinfo") // 이메일만 갖고온 후 나머지 정보는 회원가입 절차에서 입력
@@ -435,79 +452,87 @@ class MainActivity : Activity() {
                         var jobcode = Array<String>(3) { "" }
                         var a = jResponse.getJSONObject("response")
                         val isExistWorker = a.getBoolean("tryLogin")
+                        val approved = a.getString("worker_is_approved")
                         println(isExistWorker)
                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
-                            var worker_email = a.getString("worker_email")
-                            var worker_name = a.getString("worker_name")
-                            var password = a.getString("worker_pw")
-                            var worker_gender = a.getString("worker_gender")
-                            var worker_birth = a.getString("worker_birth")
-                            var worker_phonenum = a.getString("worker_phonenum")
-                            var worker_bankaccount = a.getString("worker_bankaccount")
-                            var worker_bankname = a.getString("worker_bankname")
-                            var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
-                            var local_sido = a.getString("local_sido")
-                            var local_sigugun = a.getString("local_sigugun")
-                            var j=0
+                            if(approved.equals("1")) {
+                                var worker_email = a.getString("worker_email")
+                                var worker_name = a.getString("worker_name")
+                                var password = a.getString("worker_pw")
+                                var worker_gender = a.getString("worker_gender")
+                                var worker_birth = a.getString("worker_birth")
+                                var worker_phonenum = a.getString("worker_phonenum")
+                                var worker_bankaccount = a.getString("worker_bankaccount")
+                                var worker_bankname = a.getString("worker_bankname")
+                                var worker_introduce = a.getString("worker_introduce") ///////  여기까지 값들어
+                                var local_sido = a.getString("local_sido")
+                                var local_sigugun = a.getString("local_sigugun")
+                                var j = 0
 
-                            var k = arrayOf("0", "1", "2")
-                            for (i in 0 until a.length()-12) {
-                                var s = a.getJSONObject(k[i])
-                                jobname[i] = s.getString("jobname")
-                                jobcareer[i] = s.getString("jobcareer")
-                                jobcode[i]=s.getString("job_code")
-                                Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
-                                Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
-                                Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
-                                j++;
-                            }
-                            if(auto) {
-                                Sharedpreference.set_id(applicationContext(), "worker_email", worker_email, "autologin")
-                                Sharedpreference.set_pw(applicationContext(), "worker_pw", worker_pw, "autologin")
-                                Sharedpreference.set_state(applicationContext(), "switch1", true, "state");
-                            }
-
-                            Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
-
-                            Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
-                            Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
-                            Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
-                            Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
-                            Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
-                            Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
-                            Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
-                            Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
-                            Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
-
-                            Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
-                            Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")//
-
-                            val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
-                            val token = FirebaseInstanceId.getInstance().token
-                            Log.d("asdfasdf", token)
-
-
-                            val kListener: Response.Listener<String?> = Response.Listener<String?>
-                            // Generics를 String타입으로 한정
-                            {
-                                try {
-                                } catch (e: java.lang.Exception) {
-                                    Log.d("mytest", e.toString())
+                                var k = arrayOf("0", "1", "2")
+                                for (i in 0 until a.length() - 13) {
+                                    var s = a.getJSONObject(k[i])
+                                    jobname[i] = s.getString("jobname")
+                                    jobcareer[i] = s.getString("jobcareer")
+                                    jobcode[i] = s.getString("job_code")
+                                    Sharedpreference.set_Jobcareer(applicationContext(), "jobname" + i, jobname[i], "memberinfo")
+                                    Sharedpreference.set_Jobname(applicationContext(), "jobcareer" + i, jobcareer[i], "memberinfo")
+                                    Sharedpreference.set_Jobcode(applicationContext(), "jobcode" + i, jobcode[i], "memberinfo")
+                                    j++;
                                 }
-                            }
-                            if(Sharedpreference.get_state1(applicationContext(),"switch2","state")) {
-                                val tokenRequest = TokenRequest(id, token, kListener)
-                                val queue3 = Volley.newRequestQueue(this@MainActivity)
-                                queue3.add(tokenRequest)
+                                if (auto) {
+                                    Sharedpreference.set_id(applicationContext(), "worker_email", worker_email, "autologin")
+                                    Sharedpreference.set_pw(applicationContext(), "worker_pw", worker_pw, "autologin")
+                                    Sharedpreference.set_state(applicationContext(), "switch1", true, "state");
+                                }
+
+                                Sharedpreference.set_numofjob(applicationContext(), "numofjob", j.toString(), "memberinfo")
+
+                                Sharedpreference.set_email(applicationContext(), "worker_email", worker_email, "memberinfo")
+                                Sharedpreference.set_Nickname(applicationContext(), "worker_name", worker_name, "memberinfo")
+                                Sharedpreference.set_Password(applicationContext(), "worker_pw", password, "memberinfo")
+                                Sharedpreference.set_Gender(applicationContext(), "worker_gender", worker_gender, "memberinfo")
+                                Sharedpreference.set_Birth(applicationContext(), "worker_birth", worker_birth, "memberinfo")
+                                Sharedpreference.set_Phonenum(applicationContext(), "worker_phonenum", worker_phonenum, "memberinfo")
+                                Sharedpreference.set_Bankaccount(applicationContext(), "worker_bankaccount", worker_bankaccount, "memberinfo")
+                                Sharedpreference.set_Bankname(applicationContext(), "worker_bankname", worker_bankname, "memberinfo")
+                                Sharedpreference.set_introduce(applicationContext(), "worker_introduce", worker_introduce, "memberinfo")
+
+                                Sharedpreference.set_Hope_local_sido(applicationContext(), "local_sido", local_sido, "memberinfo")
+                                Sharedpreference.set_Hope_local_sigugun(applicationContext(), "local_sigugun", local_sigugun, "memberinfo")//
+
+                                val id = Sharedpreference.get_email(applicationContext(), "worker_email", "memberinfo")
+                                val token = FirebaseInstanceId.getInstance().token
+                                Log.d("asdfasdf", token)
+
+
+                                val kListener: Response.Listener<String?> = Response.Listener<String?>
+                                // Generics를 String타입으로 한정
+                                {
+                                    try {
+                                    } catch (e: java.lang.Exception) {
+                                        Log.d("mytest", e.toString())
+                                    }
+                                }
+                                if (Sharedpreference.get_state1(applicationContext(), "switch2", "state")) {
+                                    val tokenRequest = TokenRequest(id, token, kListener)
+                                    val queue3 = Volley.newRequestQueue(this@MainActivity)
+                                    queue3.add(tokenRequest)
+                                }
+
+                                intent() //
                             }
 
-                            intent() //
+
+                            else {
+                                Toast.makeText(this@MainActivity, "회원가입 승인 요청 중입니다.", Toast.LENGTH_SHORT).show();
+                            }
                             //Toast.makeText(FindPasswordInfoActivity.this, "등록된 "+worker_pw, Toast.LENGTH_SHORT).show();
                         } else {  // 회원이 존재하지 않는다면
                             Toast.makeText(this@MainActivity, "로그인실패", Toast.LENGTH_SHORT).show();
                         }
                     } catch (e: Exception) {
-                        Log.d("mytest", e.toString()) // 오류 출력
+                        Log.d("mytesttttttttt", e.toString()) // 오류 출력
                     }
 
                 }
