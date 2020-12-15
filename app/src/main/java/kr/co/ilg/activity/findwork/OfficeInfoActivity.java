@@ -41,6 +41,7 @@ public class OfficeInfoActivity extends AppCompatActivity {
     int k;
     String name[], contents[], datetime[], key[];
     RecyclerView.LayoutManager layoutManager;
+    WorkMapActivity workMapActivity = new WorkMapActivity();
     String mapAddress;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -199,6 +200,9 @@ public class OfficeInfoActivity extends AppCompatActivity {
                 Log.d("mappppp",mapAddress);
                 Intent intent = new Intent(OfficeInfoActivity.this, WorkMapActivity.class);
                 intent.putExtra("mapAddress",mapAddress);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                workMapActivity.setMapCenter(mapAddress);
                 startActivity(intent);
             }
         });

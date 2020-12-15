@@ -37,6 +37,7 @@ public class WorkInfoActivity extends AppCompatActivity {
     boolean jp_is_urgency;
     Intent intent;
     String mapAddress;
+    WorkMapActivity workMapActivity = new WorkMapActivity();
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -114,7 +115,11 @@ public class WorkInfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(WorkInfoActivity.this, WorkMapActivity.class);
                 intent.putExtra("mapAddress",mapAddress);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);;
+                workMapActivity.setMapCenter(mapAddress);
                 startActivity(intent);
+
             }
         });
 

@@ -2,6 +2,7 @@ package kr.co.ilg.activity.findwork;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -47,7 +49,7 @@ import java.util.Locale;
 public class WorkMapActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
     ImageButton back;
     private static final String LOG_TAG = "WorkMapActivity";
-    MapView mapView;
+   public static MapView mapView;
     ViewGroup mapViewContainer;
     LinearLayout checkbox_layout;
     CheckBox field_checkbox, office_checkbox;
@@ -63,6 +65,7 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
     Boolean fieldCheck, managerCheck;
     String firstScreen =null;
     private GpsTracker gpsTracker;
+    public Context context = this;
 
 
     @Override
@@ -111,6 +114,8 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
           mapView.setPOIItemEventListener(this);
         mapView.setMapViewEventListener(this);
 
+        CustomCalloutBalloonAdapter adapter = new CustomCalloutBalloonAdapter(getApplicationContext());
+        mapView.setCalloutBalloonAdapter(adapter);
 //        mapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter(WorkMapActivity.this));
    //            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(100.53737528, 127.00557633), true);
 //        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(MapView.CurrentLocationTrackingMode.),true);
@@ -130,29 +135,29 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
        }
        // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
-       else {
-           Geocoder geocoder = new Geocoder(this);
-
-           List<Address> list = null;
-           try {
-               list = geocoder.getFromLocationName(
-                       firstScreen, // 지역 이름
-                       10); // 읽을 개수
-           } catch (IOException e) {
-               e.printStackTrace();
-               Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
-               Log.d("test", e.toString());
-           }
-
-           if (list != null) {
-               if (list.size() == 0) {
-                   Log.d("test", "해당되는 주소 정보는 없습니다");
-               } else {
-
-                   mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(list.get(0).getLatitude(), list.get(0).getLongitude()),1 ,true);
-               }
-           }
-       }
+//       else {
+//           Geocoder geocoder = new Geocoder(this);
+//
+//           List<Address> list = null;
+//           try {
+//               list = geocoder.getFromLocationName(
+//                       firstScreen, // 지역 이름
+//                       10); // 읽을 개수
+//           } catch (IOException e) {
+//               e.printStackTrace();
+//               Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
+//               Log.d("test", e.toString());
+//           }
+//
+//           if (list != null) {
+//               if (list.size() == 0) {
+//                   Log.d("test", "해당되는 주소 정보는 없습니다");
+//               } else {
+//
+//                   mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(list.get(0).getLatitude(), list.get(0).getLongitude()),1 ,true);
+//               }
+//           }
+//       }
 //        mapView.setShowCurrentLocationMarker(true);
         Log.d("ccccc", mapView.getCurrentLocationTrackingMode().toString());
 
@@ -244,7 +249,7 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
     public void markerChange(MapPOIItem[] marker, MapPOIItem[] marker1,String[] field_address, String[] manager_office_address, boolean fieldCheck, boolean managerCheck) {
 
         final Geocoder geocoder = new Geocoder(this);
-
+        Log.d("ttttttttttttmapview",mapView+"");
         if (fieldCheck) {
             if(mapView.findPOIItemByName(field_name[0])==null) {
                 for (int i = 0; i < field_address.length; i++) {
@@ -277,7 +282,7 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                             //  MapPOIItem mapPOIItem = new MapPOIItem();
                             //  MapPOIItem[] marker = new MapPOIItem[field_address.length];
 
-                            marker[i].setItemName(field_name[i]);
+                            marker[i].setItemName(field_name[i]+"*"+field_address[i]);
                             marker[i].setTag(field_code[i]);
                             marker[i].setMapPoint(mapPoint);
                             marker[i].setMarkerType(MapPOIItem.MarkerType.CustomImage); // 기본으로 제공하는 BluePin 마커 모양.
@@ -337,7 +342,7 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(list_manager.get(0).getLatitude(), list_manager.get(0).getLongitude());
 
 
-                            marker1[i].setItemName(manager_office_name[i]);
+                            marker1[i].setItemName(manager_office_name[i]+"*"+manager_office_address[i]);
                             marker1[i].setTag(0);
                             marker1[i].setMapPoint(mapPoint);
                             marker1[i].setMarkerType(MapPOIItem.MarkerType.CustomImage); // 기본으로 제공하는 BluePin 마커 모양.
@@ -423,6 +428,33 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                 } else {
                     Toast.makeText(WorkMapActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
                 }
+            }
+        }
+    }
+
+    public void setMapCenter(String firstScreen)
+    {
+        this.firstScreen = firstScreen;
+        Geocoder geocoder = new Geocoder(this);
+
+        List<Address> list = null;
+        try {
+            list = geocoder.getFromLocationName(
+                    firstScreen, // 지역 이름
+                    10); // 읽을 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
+            Log.d("test", e.toString());
+        }
+
+        if (list != null) {
+            if (list.size() == 0) {
+                Log.d("test", "해당되는 주소 정보는 없습니다");
+            } else {
+                Log.d("ttttttttt", list.get(0).getLatitude() +"./////"+ list.get(0).getLongitude()+mapView);
+
+                 mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(list.get(0).getLatitude(), list.get(0).getLongitude()),1 ,true);
             }
         }
     }
@@ -586,7 +618,10 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                             Intent intent = new Intent(WorkMapActivity.this, OfficeInfoActivity.class);
                             intent.putExtra("business_reg_num", business_reg_num[0]);
                             startActivity(intent);
-                            mapView.refreshMapTiles();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                      //      mapView.refreshMapTiles();
+//                            onDestroy();
                            // finish();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -596,7 +631,7 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                     }
                 };
 
-                MapForOfficeRequest mapForOffice = new MapForOfficeRequest(mapPOIItem.getItemName(), responseListener);
+                MapForOfficeRequest mapForOffice = new MapForOfficeRequest(mapPOIItem.getItemName().substring(0,mapPOIItem.getItemName().indexOf("*")), responseListener);
                 RequestQueue queue1 = Volley.newRequestQueue(WorkMapActivity.this);
                 queue1.add(mapForOffice);
             }
@@ -680,8 +715,12 @@ public class WorkMapActivity extends AppCompatActivity implements MapView.Curren
                             intent.putExtra("business_reg_num",business_reg_num[0]);
 
                             startActivity(intent);
-                            finish();
-                            mapView.refreshMapTiles();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);;
+                       //     finish();
+                       //     mapView.refreshMapTiles();
+//                            onDestroy();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.d("mytest4", e.toString());

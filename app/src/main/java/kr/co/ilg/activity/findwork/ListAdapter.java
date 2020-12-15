@@ -101,6 +101,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 intent.putExtra("jp_contents",workInfo.get(position).jp_contents);
                 intent.putExtra("field_name",workInfo.get(position).fieldname);
                 context.startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);;
             }
 
         });
