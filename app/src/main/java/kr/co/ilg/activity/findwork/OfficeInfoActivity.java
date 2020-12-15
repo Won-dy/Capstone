@@ -3,6 +3,7 @@ package kr.co.ilg.activity.findwork;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -202,8 +203,14 @@ public class OfficeInfoActivity extends AppCompatActivity {
                 intent.putExtra("mapAddress",mapAddress);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                workMapActivity.setMapCenter(mapAddress);
                 startActivity(intent);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        workMapActivity.setMapCenter(mapAddress);
+                    }
+                }, 100); //딜레이 타임 조절 0.1초
             }
         });
     }
