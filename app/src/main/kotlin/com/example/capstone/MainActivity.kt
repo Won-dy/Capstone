@@ -130,8 +130,9 @@ class MainActivity : Activity() {
                                         var jobcode = Array<String>(3) { "" }
                                         var a = jResponse.getJSONObject("response")
                                         val isExistWorker = a.getBoolean("tryLogin")
-                                        val approved = a.getString("worker_is_approved")
+
                                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
+                                            val approved = a.getString("worker_is_approved")
                                             if(approved.equals("1")) {
                                                 var worker_email = a.getString("worker_email")
                                                 var worker_name = a.getString("worker_name")
@@ -226,9 +227,11 @@ class MainActivity : Activity() {
                                         var jobcode = Array<String>(3) { "" }
                                         var a = jResponse.getJSONObject("response")
                                         val isExistWorker = a.getBoolean("tryLogin")
-                                        val approved = a.getString("worker_is_approved")
+
                                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
+                                            val approved = a.getString("worker_is_approved")
                                             if(approved.equals("1")) {
+
                                                 var worker_email = a.getString("worker_email")
                                                 var worker_name = a.getString("worker_name")
                                                 var password = a.getString("worker_pw")
@@ -335,9 +338,11 @@ class MainActivity : Activity() {
                                                         var jobcode = Array<String>(3) { "" }
                                                         var a = jResponse.getJSONObject("response")
                                                         val isExistWorker = a.getBoolean("tryLogin")
-                                                        val approved = a.getString("worker_is_approved")
+
                                                         if (isExistWorker) {  // 회원이 존재하면 로그인된 화면으로 넘어감
+                                                            val approved = a.getString("worker_is_approved")
                                                             if(approved.equals("1")) {
+
                                                                 var worker_email = a.getString("worker_email")
                                                                 var worker_name = a.getString("worker_name")
                                                                 var password = a.getString("worker_pw")
