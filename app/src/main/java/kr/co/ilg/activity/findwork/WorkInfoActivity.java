@@ -85,6 +85,7 @@ public class WorkInfoActivity extends AppCompatActivity {
         jp_num = receiver.getExtras().getString("jp_num");
         jp_title = receiver.getExtras().getString("jp_title");
         field_address = receiver.getExtras().getString("field_address");
+        jp_is_urgency = receiver.getExtras().getBoolean("urgency");
         mapAddress = field_address;
         manager_office_name = receiver.getExtras().getString("manager_office_name");
         job_name = receiver.getExtras().getString("job_name");
@@ -134,6 +135,7 @@ public class WorkInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WorkInfoActivity.this, FieldInfoActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("jp_num", jp_num);
                 intent.putExtra("field_name", field_name);
                 intent.putExtra("field_address", field_address);
@@ -156,6 +158,7 @@ public class WorkInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WorkInfoActivity.this, OfficeInfoActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("business_reg_num", business_reg_num);
                 startActivity(intent);
             }
@@ -219,6 +222,7 @@ public class WorkInfoActivity extends AppCompatActivity {
                                 manager_phonenum = jResponse.getString("manager_phonenum");
                                 Uri uri = Uri.parse("tel:" + manager_phonenum);
                                 intent = new Intent(Intent.ACTION_DIAL, uri);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(WorkInfoActivity.this, "연락처 로드 실패", Toast.LENGTH_SHORT).show();
@@ -247,6 +251,7 @@ public class WorkInfoActivity extends AppCompatActivity {
                             if (selectTelNum) {
                                 manager_phonenum = jResponse.getString("manager_phonenum");
                                 intent = new Intent(Intent.ACTION_SENDTO);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("sms_body", "인력거 보고 연락드립니다.");
                                 intent.setData(Uri.parse("smsto:" + Uri.encode(manager_phonenum)));
                                 startActivity(intent);
