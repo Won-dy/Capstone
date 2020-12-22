@@ -96,7 +96,7 @@ public class ReviewManageActivity extends Activity {
                         contents[i] = MainRequest.getString("contents");
                         datetime[i] = MainRequest.getString("datetime");
                         key[i] = MainRequest.getString("key");
-                        if(key[i]=="0") u++;
+                        if(key[i].equals("0")) u++;
                         ForOInfo[i] = MainRequest.getString("ForOInfo");
                         Log.d("ttttttttttttttt",key[i]+"           "+name[i]);
                         if(key[i].equals("0")) {  // 현장

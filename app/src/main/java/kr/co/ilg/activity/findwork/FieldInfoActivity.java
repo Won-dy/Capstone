@@ -103,6 +103,22 @@ public class FieldInfoActivity extends AppCompatActivity {
                     JSONObject jResponse = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                    Log.d("mytestzdfmkmfkqmkd",jResponse.toString());
                     jp_job_current_people = Integer.parseInt(jResponse.getString("current_people"));
+                    Log.d("ttttttttqqqqqqqqqqq", jp_num + " " + jp_job_current_people);
+                    workInfoArrayList = new ArrayList<>();
+                    try {
+                        date = dateFormat.parse(String.format("%d",y)+"-"+String.format("%02d",(m+1))+"-"+String.format("%02d",d));
+                        getdate = dateFormat.parse(jp_job_date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    int compare = date.compareTo(getdate);
+                    if(compare <=0) {
+                        workInfoArrayList.add(new ListViewItem(business_reg_num, jp_num, jp_title, jp_job_date, Integer.parseInt(jp_job_cost), job_name, field_address, manager_office_name, jp_job_current_people,
+                                Integer.parseInt(jp_job_tot_people), jp_is_urgency, jp_job_start_time, jp_job_finish_time, jp_contents, field_name));
+                    }
+
+                    ListAdapter workAdapter = new ListAdapter(getApplicationContext(), workInfoArrayList);
+                    work_info_RecyclerView.setAdapter(workAdapter);
                 } catch (Exception e) {
                     Log.d("mytest1111111", e.toString()); // 오류 출력
                 }
@@ -114,22 +130,7 @@ public class FieldInfoActivity extends AppCompatActivity {
         RequestQueue queue1 = Volley.newRequestQueue(FieldInfoActivity.this); // 데이터 전송에 사용할 Volley의 큐 객체 생
         queue1.add(cpRequest);
 
-        Log.d("ttttttttqqqqqqqqqqq", jp_num + " " + String.valueOf(jp_job_current_people));
-        workInfoArrayList = new ArrayList<>();
-        try {
-            date = dateFormat.parse(String.format("%d",y)+"-"+String.format("%02d",(m+1))+"-"+String.format("%02d",d));
-            getdate = dateFormat.parse(jp_job_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        int compare = date.compareTo(getdate);
-        if(compare <=0) {
-            workInfoArrayList.add(new ListViewItem(business_reg_num, jp_num, jp_title, jp_job_date, Integer.parseInt(jp_job_cost), job_name, field_address, manager_office_name, jp_job_current_people,
-                    Integer.parseInt(jp_job_tot_people), jp_is_urgency, jp_job_start_time, jp_job_finish_time, jp_contents, field_name));
-        }
 
-        ListAdapter workAdapter = new ListAdapter(getApplicationContext(), workInfoArrayList);
-        work_info_RecyclerView.setAdapter(workAdapter);
 
 
         review_RecyclerView = findViewById(R.id.review_list);
