@@ -223,11 +223,11 @@ public class Fragment3 extends Fragment{
                         jp_num[i]=MainRequest.getString("jp_num");
                         business_reg_num[i]=MainRequest.getString("business_reg_num");
                         jp_job_tot_people[i] = MainRequest.getInt("jp_job_tot_people");
-                        if(mf_is_paid[i]=="0"){
+                        if(mf_is_paid[i].equals("0")){
                             paid[i] = "지급안됨";
                         }
                         else  paid[i] = "지급완료";
-                        if(jp_is_urgency[i] == "0"){
+                        if(jp_is_urgency[i].equals("0")){
                             k[i] = false;
                         }
                         else k[i]=true;
