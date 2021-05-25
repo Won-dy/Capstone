@@ -56,7 +56,7 @@ public class CertificateConfirmActivity extends AppCompatActivity implements Vie
     final String TAG = getClass().getSimpleName();
     final static int TAKE_PICTURE = 1;
     boolean takePicture = false;
-    String phpUrl = "http://14.63.218.69/ImageUpload.php";
+    String phpUrl = "http://14.63.220.50/ImageUpload.php";
     URL url;
     String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;

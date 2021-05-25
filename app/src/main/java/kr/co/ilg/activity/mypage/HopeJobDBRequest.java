@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HopeJobDBRequest extends StringRequest {
-    final static private String URL = "http://14.63.218.69/Insert3.php";
+    final static private String URL = "http://14.63.220.50/Insert3.php";
     private Map<String, String> parameters;
 
 
